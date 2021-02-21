@@ -1,2 +1,2 @@
 # cybersecurity-churros
-repository for cybersecurity personal projects
+repository for security-related personal projects and scripts
