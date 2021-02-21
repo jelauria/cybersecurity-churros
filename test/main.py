@@ -1,26 +1,37 @@
 #!/usr/bin/env python3
-import hashlib
-import requests
-import argparse
-parser = argparse.ArgumentParser(description='The password vulnerability checker 1.0')
-parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.0')
-parser.add_argument('password', type=str, help="The password to check")
-args = parser.parse_args()
-sha1hash = hashlib.sha1()
-sha1hash.update(args.password.encode('utf-8'))
-sha1digest = sha1hash.hexdigest().upper()
-first_5_of_hash = sha1digest[:5]
-print("Checking haveibeenpwned.com...\n")
-result = requests.get('https://api.pwnedpasswords.com/range/'+first_5_of_hash)
-password_found = False
-if(result.status_code == 200):
-  list_of_passwords = result.text.split('\n')
-for password in list_of_passwords:
-    password_hash_suffix, number_of_times = password.split(':')
-    number_of_times = number_of_times.strip()
-    full_password_hash = first_5_of_hash + password_hash_suffix
-if(sha1digest == full_password_hash):
-    print(f'Password {args.password} found {number_of_times} times!')
-    password_found = True
-if(not password_found):
-    print("The password wasn't found in the list of pwned passwords!")
+# shebang line to make sure the code runs with python 3
+
+# make import statements, define functions, define enums here
+
+import math
+from enum import Enum, auto
+
+class WORK_LANG(Enum):
+    ORDER = auto()
+    CANDOR = auto()
+
+def main():
+    x = [1, 2, 3]
+    for i in x:
+        print(i)
+    y = 1
+    while y < 5:
+        y = y + 1
+        if y is 7:
+            break
+        elif 7 is 10:
+            continue
+        print(y)
+    try:
+        x.append("boop")
+        if len(x) > 3:
+            raise ValueError("the rent is too dang high")
+    except TypeError as e:
+        print("whoopo: " + str(e))
+    finally: # runs regardless of whether or not there was an error
+        print("zoop")
+        print(math.pi)
+
+# if statement so main() runs by default from command line
+if __name__=="__main__":
+    main()
